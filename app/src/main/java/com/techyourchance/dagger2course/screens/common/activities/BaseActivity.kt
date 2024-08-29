@@ -10,11 +10,9 @@ import com.techyourchance.dagger2course.common.dependnecyinjection.PresentationM
 
 open class BaseActivity: AppCompatActivity() {
 
-    private val appCompositionRoot get() = (application as MyApplication).appCompositionRoot
-
     val activityComponent by lazy {
         DaggerActivityComponent.builder()
-            .activityModule(ActivityModule(this, appCompositionRoot))
+            .activityModule(ActivityModule(this, (application as MyApplication).appComponent))
             .build()
     }
 

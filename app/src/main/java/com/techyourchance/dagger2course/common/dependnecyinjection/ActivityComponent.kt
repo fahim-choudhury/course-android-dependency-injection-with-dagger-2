@@ -9,7 +9,6 @@ import dagger.Component
 
 @Component(modules = [ActivityModule::class])
 interface ActivityComponent {
-
     fun activity(): AppCompatActivity
 
     fun layoutInflater(): LayoutInflater
