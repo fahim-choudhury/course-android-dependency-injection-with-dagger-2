@@ -12,9 +12,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 class AppModule(val application: Application) {
 
     @Provides
+    @AppScope
     fun application() = application
 
     @Provides
+    @AppScope
     fun retrofit(): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
@@ -23,6 +25,7 @@ class AppModule(val application: Application) {
     }
 
     @Provides
+    @AppScope
     fun stackoverflowApi(retrofit: Retrofit): StackoverflowApi {
         return retrofit.create(StackoverflowApi::class.java)
     }
