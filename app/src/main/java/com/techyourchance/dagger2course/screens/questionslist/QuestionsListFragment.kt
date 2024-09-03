@@ -1,9 +1,11 @@
 package com.techyourchance.dagger2course.screens.questionslist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.techyourchance.dagger2course.questions.FetchQuestionDetailsUseCase
 import com.techyourchance.dagger2course.questions.FetchQuestionsUseCase
 import com.techyourchance.dagger2course.questions.Question
 import com.techyourchance.dagger2course.screens.common.ScreensNavigator
@@ -18,6 +20,8 @@ class QuestionsListFragment : BaseFragment(), QuestionsListViewMvc.Listener {
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
     @Inject lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+    @Inject lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
+
     @Inject lateinit var dialogsNavigator: DialogsNavigator
     @Inject lateinit var screensNavigator: ScreensNavigator
     @Inject lateinit var viewMvcFactory: ViewMvcFactory
@@ -28,6 +32,9 @@ class QuestionsListFragment : BaseFragment(), QuestionsListViewMvc.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)
+        Log.i("QuestionsListFragment", screensNavigator.toString())
+        Log.i("QuestionDetailsActivity", fetchQuestionsUseCase.toString())
+        Log.i("QuestionDetailsActivity", fetchQuestionDetailsUseCase.toString())
         super.onCreate(savedInstanceState)
     }
 

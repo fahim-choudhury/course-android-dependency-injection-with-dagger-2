@@ -1,5 +1,6 @@
 package com.techyourchance.dagger2course.questions
 
+import com.techyourchance.dagger2course.common.dependnecyinjection.app.AppScope
 import com.techyourchance.dagger2course.networking.StackoverflowApi
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers

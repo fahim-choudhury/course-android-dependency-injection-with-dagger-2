@@ -3,6 +3,7 @@ package com.techyourchance.dagger2course.screens.common
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import com.techyourchance.dagger2course.common.dependnecyinjection.activity.ActivityScope
+import com.techyourchance.dagger2course.common.dependnecyinjection.presentation.PresentationScope
 import com.techyourchance.dagger2course.screens.questiondetails.QuestionDetailsActivity
 import javax.inject.Inject
 
