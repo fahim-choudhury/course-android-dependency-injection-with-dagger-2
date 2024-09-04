@@ -3,6 +3,8 @@ package com.techyourchance.dagger2course.common.dependnecyinjection.app
 import android.app.Application
 import com.techyourchance.dagger2course.Constants
 import com.techyourchance.dagger2course.networking.StackoverflowApi
+import com.techyourchance.dagger2course.questions.FetchQuestionDetailsUseCase
+import com.techyourchance.dagger2course.questions.FetchQuestionsUseCase
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -29,5 +31,15 @@ class AppModule(val application: Application) {
     fun stackoverflowApi(retrofit: Retrofit): StackoverflowApi {
         return retrofit.create(StackoverflowApi::class.java)
     }
+
+    @Provides
+    @AppScope
+    fun fetchQuestionsUseCase(stackoverflowApi: StackoverflowApi) =
+        FetchQuestionsUseCase(stackoverflowApi)
+
+    @Provides
+    @AppScope
+    fun fetchQuestionDetailsUseCase(stackoverflowApi: StackoverflowApi) =
+        FetchQuestionDetailsUseCase(stackoverflowApi)
 
 }
