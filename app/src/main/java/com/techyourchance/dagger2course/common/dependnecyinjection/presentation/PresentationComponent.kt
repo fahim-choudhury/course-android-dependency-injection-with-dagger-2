@@ -1,5 +1,6 @@
 package com.techyourchance.dagger2course.common.dependnecyinjection.presentation
 
+import com.techyourchance.dagger2course.screens.common.dialogs.ServerErrorDialogFragment
 import com.techyourchance.dagger2course.screens.questiondetails.QuestionDetailsActivity
 import com.techyourchance.dagger2course.screens.questionslist.QuestionsListActivity
 import com.techyourchance.dagger2course.screens.questionslist.QuestionsListFragment
@@ -11,4 +12,5 @@ interface PresentationComponent {
     fun inject(target: QuestionDetailsActivity)
     fun inject(target: QuestionsListFragment)
     fun inject(target: QuestionsListActivity)
+    fun inject(target: ServerErrorDialogFragment)
 }
