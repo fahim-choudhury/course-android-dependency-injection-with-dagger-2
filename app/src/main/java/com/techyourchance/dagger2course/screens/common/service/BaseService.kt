@@ -8,6 +8,9 @@ abstract class BaseService : Service() {
     private val appComponent get() = (application as MyApplication).appComponent
 
     val serviceComponent by lazy {
-        appComponent.newServiceComponent(ServiceModule(this))
+        appComponent.newServiceComponentBuilder()
+            .context(this)
+            .serviceModule(ServiceModule)
+            .build()
     }
 }

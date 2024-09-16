@@ -9,5 +9,5 @@ import dagger.Component
 @AppScope
 interface AppComponent {
     fun newActivityComponentBuilder(): ActivityComponent.Builder
-    fun newServiceComponent(serviceModule: ServiceModule): ServiceComponent
+    fun newServiceComponentBuilder(): ServiceComponent.Builder
 }
