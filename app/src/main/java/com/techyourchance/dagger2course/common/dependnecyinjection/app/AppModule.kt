@@ -17,29 +17,30 @@ class AppModule(val application: Application) {
     @AppScope
     fun application() = application
 
-    @Provides
-    @AppScope
-    fun retrofit(): Retrofit {
-        return Retrofit.Builder()
+    companion object {
+        @Provides
+        @AppScope
+        fun retrofit(): Retrofit {
+            return Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
+        }
+
+        @Provides
+        @AppScope
+        fun stackoverflowApi(retrofit: Retrofit): StackoverflowApi {
+            return retrofit.create(StackoverflowApi::class.java)
+        }
+
+        @Provides
+        @AppScope
+        fun fetchQuestionsUseCase(stackoverflowApi: StackoverflowApi) =
+            FetchQuestionsUseCase(stackoverflowApi)
+
+        @Provides
+        @AppScope
+        fun fetchQuestionDetailsUseCase(stackoverflowApi: StackoverflowApi) =
+            FetchQuestionDetailsUseCase(stackoverflowApi)
     }
-
-    @Provides
-    @AppScope
-    fun stackoverflowApi(retrofit: Retrofit): StackoverflowApi {
-        return retrofit.create(StackoverflowApi::class.java)
-    }
-
-    @Provides
-    @AppScope
-    fun fetchQuestionsUseCase(stackoverflowApi: StackoverflowApi) =
-        FetchQuestionsUseCase(stackoverflowApi)
-
-    @Provides
-    @AppScope
-    fun fetchQuestionDetailsUseCase(stackoverflowApi: StackoverflowApi) =
-        FetchQuestionDetailsUseCase(stackoverflowApi)
-
 }
