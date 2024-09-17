@@ -9,7 +9,8 @@ import javax.inject.Inject
 
 class QuestionsListActivity : BaseActivity() {
 
-    @Inject lateinit var screensNavigator: ScreensNavigator
+    @Inject
+    lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injector.inject(this)
@@ -19,8 +20,8 @@ class QuestionsListActivity : BaseActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .add(R.id.frame_content, QuestionsListFragment())
-                    .commit()
+                .add(R.id.frame_content, QuestionsListFragment())
+                .commit()
         }
 
     }

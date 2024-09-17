@@ -12,19 +12,31 @@ import com.techyourchance.dagger2course.screens.common.ScreensNavigator
 import com.techyourchance.dagger2course.screens.common.dialogs.DialogsNavigator
 import com.techyourchance.dagger2course.screens.common.fragments.BaseFragment
 import com.techyourchance.dagger2course.screens.common.viewsmvc.ViewMvcFactory
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class QuestionsListFragment : BaseFragment(), QuestionsListViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    @Inject lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
-    @Inject lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
+    @Inject
+    lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
 
-    @Inject lateinit var dialogsNavigator: DialogsNavigator
-    @Inject lateinit var screensNavigator: ScreensNavigator
-    @Inject lateinit var viewMvcFactory: ViewMvcFactory
+    @Inject
+    lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
+
+    @Inject
+    lateinit var dialogsNavigator: DialogsNavigator
+
+    @Inject
+    lateinit var screensNavigator: ScreensNavigator
+
+    @Inject
+    lateinit var viewMvcFactory: ViewMvcFactory
 
     private lateinit var viewMvc: QuestionsListViewMvc
 
@@ -38,7 +50,11 @@ class QuestionsListFragment : BaseFragment(), QuestionsListViewMvc.Listener {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         viewMvc = viewMvcFactory.newQuestionsListViewMvc(container)
         return viewMvc.rootView
     }
@@ -71,6 +87,7 @@ class QuestionsListFragment : BaseFragment(), QuestionsListViewMvc.Listener {
                         viewMvc.bindQuestions(result.questions)
                         isDataLoaded = true
                     }
+
                     is FetchQuestionsUseCase.Result.Failure -> onFetchFailed()
                 }
             } finally {
