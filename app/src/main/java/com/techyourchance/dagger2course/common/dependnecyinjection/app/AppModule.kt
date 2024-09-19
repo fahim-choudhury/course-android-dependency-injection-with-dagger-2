@@ -2,6 +2,8 @@ package com.techyourchance.dagger2course.common.dependnecyinjection.app
 
 import android.app.Application
 import com.techyourchance.dagger2course.Constants
+import com.techyourchance.dagger2course.common.dependnecyinjection.Production
+import com.techyourchance.dagger2course.common.dependnecyinjection.Staging
 import com.techyourchance.dagger2course.networking.StackoverflowApi
 import com.techyourchance.dagger2course.questions.FetchQuestionDetailsUseCase
 import com.techyourchance.dagger2course.questions.FetchQuestionsUseCase
@@ -20,7 +22,8 @@ class AppModule(val application: Application) {
     companion object {
         @Provides
         @AppScope
-        fun retrofit(): Retrofit {
+        @Staging
+        fun retrofitStaging(): Retrofit {
             return Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -29,7 +32,17 @@ class AppModule(val application: Application) {
 
         @Provides
         @AppScope
-        fun stackoverflowApi(retrofit: Retrofit): StackoverflowApi {
+        @Production
+        fun retrofitProduction(): Retrofit {
+            return Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+
+        @Provides
+        @AppScope
+        fun stackoverflowApi(@Staging retrofit: Retrofit): StackoverflowApi {
             return retrofit.create(StackoverflowApi::class.java)
         }
 
