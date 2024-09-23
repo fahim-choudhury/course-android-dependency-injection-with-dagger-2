@@ -1,12 +1,14 @@
 package com.techyourchance.dagger2course.screens.questionslist
 
 import android.os.Bundle
+import android.util.Log
 import com.techyourchance.dagger2course.R
 import com.techyourchance.dagger2course.screens.common.activities.BaseActivity
 
 class QuestionsListActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("QuestionsListActivity", "onCreate()")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_frame)
 
