@@ -8,7 +8,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.techyourchance.dagger2course.R
 import com.techyourchance.dagger2course.screens.common.ScreensNavigator
-import com.techyourchance.dagger2course.screens.common.ViewModelFactory
 import com.techyourchance.dagger2course.screens.common.activities.BaseActivity
 import com.techyourchance.dagger2course.screens.common.toolbar.MyToolbar
 import javax.inject.Inject
@@ -19,8 +18,8 @@ class ViewModelActivity : BaseActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    lateinit var myViewModel: MyViewModel
-    lateinit var myViewModel2: MyViewModel2
+    private lateinit var myViewModel: MyViewModel
+    private lateinit var myViewModel2: MyViewModel2
 
     private lateinit var toolbar: MyToolbar
 
