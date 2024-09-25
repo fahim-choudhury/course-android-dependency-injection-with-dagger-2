@@ -1,17 +1,29 @@
 package com.techyourchance.dagger2course.screens.viewmodel
 
+import androidx.lifecycle.AbstractSavedStateViewModelFactory
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.savedstate.SavedStateRegistryOwner
 import javax.inject.Inject
 import javax.inject.Provider
 
 
 class ViewModelFactory @Inject constructor(
-    private val viewModelProviderMap: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+    private val viewModelProviderMap: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>,
+    savedStateRegistryOwner: SavedStateRegistryOwner
+) : AbstractSavedStateViewModelFactory(savedStateRegistryOwner, null) {
+    override fun <T : ViewModel> create(
+        key: String,
+        modelClass: Class<T>,
+        handle: SavedStateHandle
+    ): T {
         val viewModel = viewModelProviderMap[modelClass]?.get()
             ?: throw RuntimeException("Unsupported ViewModel type: $modelClass")
+
+        if (viewModel is SavedStateViewModel) {
+            viewModel.init(handle)
+        }
+
         return viewModel as T
     }
 }
