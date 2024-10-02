@@ -1,24 +1,30 @@
 package com.techyourchance.dagger2course.screens.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.techyourchance.dagger2course.questions.FetchQuestionDetailsUseCase
 import com.techyourchance.dagger2course.questions.FetchQuestionsUseCase
 import com.techyourchance.dagger2course.questions.Question
-import com.techyourchance.dagger2course.screens.common.viewmodels.SavedStateViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class MyViewModel @Inject constructor(
         private val fetchQuestionsUseCase: FetchQuestionsUseCase,
-        private val fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
-): SavedStateViewModel() {
+        private val fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase,
+        savedStateHandle: SavedStateHandle
+) : ViewModel() {
 
-    private lateinit var _questions: MutableLiveData<List<Question>>
+    private var _questions: MutableLiveData<List<Question>> =
+        savedStateHandle.getLiveData("questions")
     val questions: LiveData<List<Question>> get() = _questions
 
-    override fun init(savedStateHandle: SavedStateHandle) {
-        _questions = savedStateHandle.getLiveData("questions")
+    init {
 
         viewModelScope.launch {
             delay(5000)
